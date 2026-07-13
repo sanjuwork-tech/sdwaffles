@@ -131,3 +131,58 @@ Stage Summary:
 - Sticky footer confirmed (pushed to bottom by content, no overlap)
 - No errors in console or dev log
 - Task COMPLETE
+
+---
+Task ID: LOGO
+Agent: Logo Generation Subagent
+Task: Generate premium SD Waffles & Shakes logo in PNG + JPEG
+
+Work Log:
+- Read worklog.md for project context (chocolate brown #3D2314 / waffle gold #F2C14E / strawberry pink #FF6B8B / cream #FAFAFA palette)
+- Confirmed /home/z/my-project/public/images/ directory exists
+- logo-sd.png: SUCCESS (1024x1024, 100KB) - SD monogram badge on deep chocolate brown #2A1609 background, golden honeycomb texture, pink milkshake swirl, chocolate border ring
+- logo-sd-cream.png: SUCCESS (1024x1024, 99KB) - same SD monogram badge on cream white #FAFAFA background
+- Converted both PNGs to JPEG via Python/PIL (quality=92):
+  * logo-sd.jpg: SUCCESS (1024x1024, 146KB)
+  * logo-sd-cream.jpg: SUCCESS (1024x1024, 144KB)
+- Verified all 4 files present via ls -la /home/z/my-project/public/images/logo-sd*
+- Both generations succeeded on first attempt (no retries needed)
+
+Stage Summary:
+- 4/4 files produced (100% success)
+- /home/z/my-project/public/images/logo-sd.png (100KB, chocolate bg, square app-icon)
+- /home/z/my-project/public/images/logo-sd.jpg (146KB, chocolate bg JPEG)
+- /home/z/my-project/public/images/logo-sd-cream.png (99KB, cream bg, navbar-badge friendly)
+- /home/z/my-project/public/images/logo-sd-cream.jpg (144KB, cream bg JPEG)
+- All square 1024x1024 — suitable as app icon, navbar badge, favicon set source
+
+---
+Task ID: 12 (revision)
+Agent: Main (Z.ai Code)
+Task: Replace menu with full dataset, restructure hero (centered text + smaller 3D on sides), add premium logo to header & footer
+
+Work Log:
+- LOGO subagent generated 4 logo files: logo-sd.png/jpg (chocolate bg) + logo-sd-cream.png/jpg (cream bg), 1024x1024 circular badge with SD monogram, waffle texture, pink shake swirl
+- Rewrote lib/menu-data.ts with FULL menu: 16 categories, 130+ items
+  * Categories: Waffle Sandwiches(9), Premium Thick Shakes(14), Choco Thick Shakes(12), Fruit Shakes(9), Mocktails(9), Waffle Sundae(12), Brownies(6), Ice Creams(10), Snacks(10), Burgers(7), Momos(3), Mini Pan Cakes(10), Hot Beverages(4), Waffle Icecream Sandwich(3), Sizzling Brownie(2), Extra Toppings(12)
+  * Items with prices mapped from user data; unpriced items (fruit shakes, mocktails, ice creams, sundaes, toppings) assigned sensible category-average prices
+  * Variants preserved (e.g. Chicken Popcorn "10pc / 15pc", Momos "4pc", Mini Pan Cakes "7 pcs / 10 pcs")
+  * Reused existing 21 images where names match; emoji fallback for items without images
+- Restructured hero-scene.tsx: 3D objects repositioned to LEFT (x:-3.4 to -4.8) and RIGHT (x:+3.6 to +4.8) clusters, smaller scale (0.32-0.62), center kept clear
+- Restructured hero.tsx: text now CENTERED (single column, max-w-3xl, text-center), 3D scene as absolute background layer (z-1), text on top (z-10), background chocolate image preserved as-is
+- Updated menu.tsx: compact list-style cards (thumbnail + name + variants + price + Add), emoji fallback thumbnails with gradient bg per category accent, horizontal scrollable tabs with auto-scroll active tab into view, search now crosses ALL categories when query active
+- Updated navbar.tsx: logo is now circular <img> using BRAND.logo (logo-sd.png) with gold ring
+- Updated footer.tsx: footer logo is circular <img> using BRAND.logo with gold ring
+- Lint: PASSED (0 errors)
+- Agent Browser verification:
+  * Hero: tagline centered, 3D objects on sides framing text, center clear, logo in navbar — VLM 8/10
+  * Menu: all 16 category tabs with correct counts, switching works (tested Snacks → all 10 items shown), search "chocolate" returns 30 results across all categories, clear search returns to category view
+  * Add-to-cart: badge updates to "Cart 1"
+  * Footer: premium circular logo visible
+  * No console/runtime errors
+
+Stage Summary:
+- Full menu (130+ items, 16 categories) live and searchable
+- Hero restructured per user request: centered text + smaller 3D on sides + background preserved
+- Premium SD logo (PNG + JPEG) placed in header (navbar) and footer
+- All golden-path interactions verified working

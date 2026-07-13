@@ -20,8 +20,12 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-[#F2C14E] to-[#C8792B] flex items-center justify-center shadow-lg">
-                <span className="font-display text-2xl text-[#2A1609]">S</span>
+              <div className="h-14 w-14 rounded-full overflow-hidden shadow-lg ring-2 ring-[#F2C14E]/40 shrink-0">
+                <img
+                  src={BRAND.logo}
+                  alt="SD Waffles & Shakes logo"
+                  className="h-full w-full object-cover"
+                />
               </div>
               <div>
                 <div className="font-display text-xl">

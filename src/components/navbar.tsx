@@ -48,9 +48,12 @@ export function Navbar() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 flex items-center justify-between gap-4">
           {/* Logo */}
           <a href="#home" className="flex items-center gap-2.5 group shrink-0">
-            <div className="relative h-11 w-11 rounded-2xl bg-gradient-to-br from-[#F2C14E] to-[#C8792B] flex items-center justify-center shadow-lg shadow-[#F2C14E]/30 transition-transform group-hover:rotate-[-8deg] group-hover:scale-105">
-              <span className="font-display text-2xl text-[#2A1609] leading-none">S</span>
-              <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-[#FF6B8B] ring-2 ring-[#2A1609]" />
+            <div className="relative h-12 w-12 sm:h-13 sm:w-13 rounded-full overflow-hidden shadow-lg shadow-[#F2C14E]/30 transition-transform group-hover:rotate-[-8deg] group-hover:scale-105 ring-2 ring-[#F2C14E]/40">
+              <img
+                src={BRAND.logo}
+                alt="SD Waffles & Shakes logo"
+                className="h-full w-full object-cover"
+              />
             </div>
             <div className="leading-none">
               <div className="font-display text-base sm:text-lg text-[#FAFAFA] tracking-tight">

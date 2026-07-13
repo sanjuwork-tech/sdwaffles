@@ -110,6 +110,8 @@ function WaffleCone({ position, scale = 1 }: { position: [number, number, number
 }
 
 function Scene() {
+  // Objects positioned on the LEFT and RIGHT sides, center kept clear.
+  // Smaller scale than before so they frame the centered text.
   return (
     <>
       <ambientLight intensity={0.6} />
@@ -123,20 +125,27 @@ function Scene() {
       <pointLight position={[6, -2, 4]} intensity={2} color="#F2C14E" />
       <spotLight position={[0, 6, 0]} angle={0.6} penumbra={1} intensity={1.2} color="#FFB3C5" />
 
-      <ChocoSphere position={[-2.6, 1.1, 0]} scale={0.95} color="#3D2314" />
-      <ChocoSphere position={[2.8, -0.6, -1]} scale={0.6} color="#2A1609" />
-      <GoldTorus position={[2.4, 1.2, 0]} scale={0.85} />
-      <GoldTorus position={[-2.2, -1.2, 1]} scale={0.5} />
-      <PinkCube position={[0, 1.6, -1]} scale={0.6} />
-      <PinkCube position={[1.4, -1.6, 1]} scale={0.45} />
-      <WaffleCone position={[-1.2, 0.4, 1.5]} scale={0.7} />
-      <WaffleCone position={[1.2, 0.2, -1.5]} scale={0.5} />
+      {/* LEFT side cluster (x: -3.8 to -5.2) */}
+      <ChocoSphere position={[-4.4, 1.0, 0]} scale={0.62} color="#3D2314" />
+      <GoldTorus position={[-3.6, -0.8, 0.5]} scale={0.5} />
+      <WaffleCone position={[-4.8, -0.2, -0.5]} scale={0.5} />
+      <PinkCube position={[-3.4, 1.6, -0.5]} scale={0.34} />
+
+      {/* RIGHT side cluster (x: +3.6 to +5.2) */}
+      <GoldTorus position={[4.2, 1.0, 0]} scale={0.6} />
+      <ChocoSphere position={[3.6, -0.9, 0.3]} scale={0.5} color="#2A1609" />
+      <PinkCube position={[4.8, -0.1, -0.5]} scale={0.42} />
+      <WaffleCone position={[3.8, 1.7, -1]} scale={0.42} />
+
+      {/* tiny accents slightly closer to center on far edges */}
+      <GoldTorus position={[-2.9, -1.4, 1]} scale={0.32} />
+      <ChocoSphere position={[2.9, 1.5, 0.8]} scale={0.32} color="#3D2314" />
 
       <ContactShadows
-        position={[0, -2.2, 0]}
-        opacity={0.45}
-        scale={12}
-        blur={2.6}
+        position={[0, -2.4, 0]}
+        opacity={0.4}
+        scale={14}
+        blur={2.8}
         far={4}
         color="#2A1609"
       />
@@ -149,7 +158,7 @@ export function HeroScene({ className }: { className?: string }) {
   return (
     <div className={className}>
       <Canvas
-        camera={{ position: [0, 0, 6], fov: 45 }}
+        camera={{ position: [0, 0, 7], fov: 45 }}
         dpr={[1, 2]}
         gl={{ antialias: true, alpha: true }}
         shadows
