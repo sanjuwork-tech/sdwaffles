@@ -21,6 +21,31 @@ export interface MenuCategoryDef {
   accent: "gold" | "strawberry" | "choco" | "cream";
 }
 
+// Category representative images — used as fallback for items without a specific photo
+export const CATEGORY_IMAGES: Record<string, string> = {
+  "waffle-sandwich": "/images/cat-waffles.png",
+  "premium-shakes": "/images/cat-premium-shakes.png",
+  "choco-shakes": "/images/cat-choco-shakes.png",
+  "fruit-shakes": "/images/cat-fruit-shakes.png",
+  "mocktails": "/images/cat-mocktails.png",
+  "waffle-sundae": "/images/cat-sundae.png",
+  "brownies": "/images/cat-brownies.png",
+  "ice-creams": "/images/cat-icecream.png",
+  "snacks": "/images/cat-snacks.png",
+  "burgers": "/images/cat-burgers.png",
+  "momos": "/images/cat-momos.png",
+  "mini-pancakes": "/images/cat-pancakes.png",
+  "hot-beverages": "/images/cat-hot-beverages.png",
+  "waffle-icecream": "/images/cat-waffle-icecream.png",
+  "sizzling-brownie": "/images/cat-sizzling.png",
+  "toppings": "/images/cat-toppings.png",
+};
+
+// Resolve the best image for a menu item: specific photo, else category representative
+export function getItemImage(item: MenuItem): string {
+  return item.image || CATEGORY_IMAGES[item.category] || "/images/cat-waffles.png";
+}
+
 export const CATEGORIES: MenuCategoryDef[] = [
   {
     id: "waffle-sandwich",

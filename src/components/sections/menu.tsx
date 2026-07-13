@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus, Flame, Sparkles, Star, Leaf, Search } from "lucide-react";
-import { CATEGORIES, MENU_ITEMS, type MenuItem } from "@/lib/menu-data";
+import { CATEGORIES, MENU_ITEMS, getItemImage, type MenuItem } from "@/lib/menu-data";
 import { useCart } from "@/lib/cart-store";
 import { cn } from "@/lib/utils";
 
@@ -64,18 +64,12 @@ function MenuCard({ item }: { item: MenuItem }) {
         "relative h-20 w-20 sm:h-24 sm:w-24 shrink-0 rounded-xl overflow-hidden bg-gradient-to-br flex items-center justify-center",
         ACCENT_BG[accent]
       )}>
-        {item.image ? (
-          <img
-            src={item.image}
-            alt={item.name}
-            loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-          />
-        ) : (
-          <span className="text-4xl sm:text-5xl drop-shadow-md select-none transition-transform duration-500 group-hover:scale-110">
-            {item.emoji}
-          </span>
-        )}
+        <img
+          src={getItemImage(item)}
+          alt={item.name}
+          loading="lazy"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
         {/* badge */}
         {badge && (
           <div
