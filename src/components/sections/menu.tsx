@@ -159,15 +159,21 @@ export function Menu() {
     count: MENU_ITEMS.filter((i) => i.category === c.id).length,
   }));
 
-  // Auto-scroll active tab into view
+  // Auto-scroll the active tab horizontally into view inside the tab bar.
+  // IMPORTANT: only scroll the container itself (scrollLeft), never the page.
+  // Using scrollIntoView() here scrolls the whole document and jumps the user
+  // to the menu section on page load/refresh — which we don't want.
   useEffect(() => {
     if (activeTabRef.current && tabsRef.current) {
       const tab = activeTabRef.current;
       const container = tabsRef.current;
       const tabRect = tab.getBoundingClientRect();
       const containerRect = container.getBoundingClientRect();
-      if (tabRect.left < containerRect.left + 20 || tabRect.right > containerRect.right - 20) {
-        tab.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      const margin = 24;
+      if (tabRect.left < containerRect.left + margin) {
+        container.scrollLeft -= containerRect.left - tabRect.left + margin;
+      } else if (tabRect.right > containerRect.right - margin) {
+        container.scrollLeft += tabRect.right - containerRect.right + margin;
       }
     }
   }, [active]);
