@@ -65,3 +65,4 @@ Caddyfile
 .idea/
 *.swp
 *.swo
+/examples
