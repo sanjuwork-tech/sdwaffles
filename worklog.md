@@ -221,3 +221,38 @@ Stage Summary:
 - Total category image size: ~2.0MB (avg ~125KB per image)
 - Consistent style applied across all 16 (deep chocolate brown background, dramatic studio lighting, premium 3D food photography look) — suitable as category card thumbnails / tab icons
 - Ready for use by main agent in menu.tsx category tabs and category browsing UI
+
+---
+Task ID: 13 (Vercel + SEO + GitHub)
+Agent: Main (Z.ai Code)
+Task: Vercel-ready, logo favicon, premium images for all items, SEO tags + sitemap, no backend (WhatsApp only), push to GitHub
+
+Work Log:
+- Generated 16 category-representative premium images (cat-waffles.png ... cat-toppings.png) via IMG2 subagent
+- Wired getItemImage() resolver in menu-data.ts; Menu component now shows premium image for EVERY item (specific photo → category image fallback), no more emoji-only placeholders
+- Set logo as favicon: copied logo-sd.png → src/app/icon.png + src/app/apple-icon.png (Next.js auto-detects)
+- Removed backend: deleted src/app/api/route.ts + src/lib/db.ts (no API routes, no database at runtime)
+- Simplified next.config.ts: removed output:"standalone" + ignoreBuildErrors, added reactStrictMode + image formats
+- Updated package.json: name→sd-waffles-and-shakes, clean build script (next build), start script (next start), engines node>=20
+- Enhanced layout.tsx SEO: full metadata (title template, keywords, canonical), OpenGraph (en_IN, hero+logo images), Twitter card, robots config, icons, manifest, viewport/themeColor, JSON-LD Restaurant schema (2 addresses, geo, opening hours, menu sections, Instagram sameAs)
+- Created app/sitemap.ts → /sitemap.xml (5 routes with priorities)
+- Created app/robots.ts → /robots.txt (allow all + sitemap ref)
+- Created app/manifest.ts → /manifest.webmanifest (PWA-ready, shortcuts)
+- Removed conflicting public/robots.txt so app/robots.ts route works
+- Orders: confirmed WhatsApp-only (cart drawer builds order message → wa.me link, no checkout/backend)
+- Lint: PASSED (0 errors)
+- Agent Browser final verification: 0 console errors, favicon active (/icon.png), 9 menu images all load (0 broken)
+- Verified SEO routes: sitemap.xml 200, robots.txt 200, manifest.webmanifest 200, icon.png 200, apple-icon.png 200
+- Git: cleaned .gitignore (exclude .env, /db/, sandbox infra), untracked .env/Caddyfile/.zscripts/secrets, wrote README.md
+- Pushed to https://github.com/sanjuwork-tech/sdwaffles.git main branch:
+  * commit a0b5603 — feat: full landing page
+  * commit 3a6965a — fix: remove conflicting robots.txt
+- Removed GitHub token from git remote config after push (security)
+
+Stage Summary:
+- Vercel-ready: clean `next build`, no DB/backend, no env vars needed
+- Logo is favicon (icon.png + apple-icon.png)
+- All 130+ menu items show premium photography (specific or category image)
+- Full SEO: metadata + JSON-LD + sitemap.xml + robots.txt + manifest
+- All orders route to WhatsApp only (no backend, no checkout)
+- Code pushed to GitHub: https://github.com/sanjuwork-tech/sdwaffles.git (main branch)
