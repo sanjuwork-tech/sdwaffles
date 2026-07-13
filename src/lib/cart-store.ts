@@ -2,7 +2,7 @@
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { MenuItem } from "@/lib/menu-data";
+import { getItemImage, type MenuItem } from "@/lib/menu-data";
 
 export interface CartLine {
   id: string;
@@ -48,7 +48,7 @@ export const useCart = create<CartState>()(
                 id: item.id,
                 name: item.name,
                 price: item.price,
-                image: item.image,
+                image: getItemImage(item),
                 qty: 1,
               },
             ],

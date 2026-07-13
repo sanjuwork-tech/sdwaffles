@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Flame, Sparkles, Plus, ArrowUpRight } from "lucide-react";
-import { FEATURED_ITEMS } from "@/lib/menu-data";
+import { FEATURED_ITEMS, MENU_ITEMS, type FeaturedItem } from "@/lib/menu-data";
 import { useCart } from "@/lib/cart-store";
 import { cn } from "@/lib/utils";
 
@@ -11,12 +11,18 @@ function TiltCard({
   item,
   index,
 }: {
-  item: (typeof FEATURED_ITEMS)[number];
+  item: FeaturedItem;
   index: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
   const add = useCart((s) => s.add);
+
+  // Look up the real menu item so we get the correct price, emoji, category, etc.
+  const menuItem = MENU_ITEMS.find((m) => m.id === item.itemId);
+  const handleAdd = () => {
+    if (menuItem) add(menuItem);
+  };
 
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -152,22 +158,14 @@ function TiltCard({
           className="mt-5 flex items-center justify-between gap-2"
         >
           <button
-            onClick={() =>
-              add({
-                id: item.itemId,
-                name: item.title,
-                price: 189,
-                image: item.image,
-                category: "waffles",
-                description: "",
-              })
-            }
+            onClick={handleAdd}
+            disabled={!menuItem}
             className={cn(
-              "inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-gradient-to-r text-[#2A1609] font-bold text-sm shadow-lg hover:scale-105 active:scale-95 transition-transform",
+              "inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-gradient-to-r text-[#2A1609] font-bold text-sm shadow-lg hover:scale-105 active:scale-95 transition-transform disabled:opacity-50 disabled:cursor-not-allowed",
               accentBg
             )}
           >
-            <Plus className="h-4 w-4" /> Add to Cart
+            <Plus className="h-4 w-4" /> Add{menuItem ? ` · ₹${menuItem.price}` : " to Cart"}
           </button>
           <a
             href="#menu"

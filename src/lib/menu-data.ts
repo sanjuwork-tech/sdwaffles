@@ -343,7 +343,18 @@ export const MENU_ITEMS: MenuItem[] = [
   { id: "tp-marshmallow", name: "Marshmellow", price: 40, emoji: "⚪", category: "toppings", veg: true, description: "Soft marshmallow topping." },
 ];
 
-export const FEATURED_ITEMS = [
+export interface FeaturedItem {
+  id: string;
+  itemId: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  accent: "gold" | "strawberry";
+  stats: { label: string; value: string }[];
+}
+
+export const FEATURED_ITEMS: FeaturedItem[] = [
   {
     id: "feat-triple-choco",
     itemId: "ws-triple-choco",
@@ -352,7 +363,7 @@ export const FEATURED_ITEMS = [
     description:
       "Warm, sweet Belgian waffle sandwich heavily loaded with three types of rich chocolate. The reason we're famous.",
     image: "/images/triple-chocolate-waffle.png",
-    accent: "gold" as const,
+    accent: "gold",
     stats: [
       { label: "Layers", value: "3" },
       { label: "Choco", value: "100%" },
@@ -361,12 +372,13 @@ export const FEATURED_ITEMS = [
   },
   {
     id: "feat-strawberry-jar",
+    itemId: "br-brownie-icecream",
     title: "The Viral Strawberry Brownie Jar",
     subtitle: "Limited-Edition / Viral Special",
     description:
       "Fresh strawberry layers combined with rich chocolate brownie bites. The jar that broke the internet.",
     image: "/images/strawberry-brownie-jar.png",
-    accent: "strawberry" as const,
+    accent: "strawberry",
     stats: [
       { label: "Views", value: "1M+" },
       { label: "Layers", value: "5" },
