@@ -73,3 +73,61 @@ Stage Summary:
 - 19 images at 1024x1024 (product/menu items), 2 images at 1344x768 (hero banner + texture background)
 - Total directory size: ~2.3MB
 - Note for main agent: hero-chocolate.png and waffle-texture-bg.png are 1344x768 (not 1440x720 as originally requested) due to API size constraints - 720px is not a valid multiple-of-32 dimension. Use appropriate CSS aspect-ratio handling if exact 2:1 is required.
+
+---
+Task ID: 3-10
+Agent: Main (Z.ai Code)
+Task: Build all components - theme, layout, navbar, hero, marquee, highlights, menu, visit-us, footer, cart
+
+Work Log:
+- Installed three, @react-three/fiber, @react-three/drei, animejs, @types/animejs
+- Wrote globals.css with chocolate/gold/pink/cream theme, marquee/float/drip/shimmer animations, glass surfaces, gradient text
+- Updated layout.tsx with Bricolage Grotesque (display) + Plus Jakarta Sans (body) fonts and brand metadata
+- Created lib/menu-data.ts with all 4 categories (waffles/shakes/snacks/mocktails), 20 menu items with prices, featured items, brand info
+- Created lib/cart-store.ts (Zustand + persist) for cart state
+- Built hero-scene.tsx: Three.js Canvas with floating choco spheres, gold torus, pink cubes, waffle cones, ContactShadows, Environment
+- Built navbar.tsx: sticky transparent->solid on scroll, mobile menu, cart badge, Instagram/call buttons
+- Built hero.tsx: 3D scene + tagline + CTAs + stats + floating emojis + drip edge
+- Built marquee.tsx: infinite scroll tagline strip
+- Built highlights.tsx: 2 featured cards with mouse-tracking 3D tilt (framer-motion), rotating rings, stats
+- Built menu.tsx: tabbed categories with animated active pill (layoutId), search, veg/non-veg markers, badges, add-to-cart
+- Built visit-us.tsx: Google Maps embed, 2 addresses, tap-to-call phones, hours, Instagram card, WhatsApp order link, floating phone icons
+- Built cart-drawer.tsx: slide-in drawer, qty controls, WhatsApp order builder, call-to-order
+- Built footer.tsx: sticky footer with brand, links, contact, hours, drip accent
+- Assembled page.tsx
+- Lint passed clean (no errors)
+
+Stage Summary:
+- All components built and page rendering HTTP 200
+- Dev server running on port 3000
+- Next: Agent Browser self-verification
+
+---
+Task ID: 11
+Agent: Main (Z.ai Code)
+Task: Assemble page, run lint, start dev server, verify with Agent Browser
+
+Work Log:
+- Assembled page.tsx with Navbar + Hero + Marquee + Highlights + Menu + VisitUs + Footer + CartDrawer
+- bun run lint: PASSED (0 errors)
+- Dev server running on port 3000, HTTP 200 responses
+- Agent Browser verification:
+  * Page title correct: "SD Waffles & Shakes — Where waffles get wild & shakes get thick!"
+  * No runtime/console errors (only Three.js deprecation warnings, harmless)
+  * Hero section: 3D scene (choco sphere, gold torus, pink cube, waffle cone) + tagline + CTAs render — VLM rated 8/10
+  * Marquee strip animating
+  * Highlights: 2 featured tilt cards with rotating rings + stats
+  * Menu: tabbed (Waffles 4 / Thick Shakes 9 / Snacks 3 / Mocktails 2), search, add-to-cart all functional — tested switching to Thick Shakes, saw Ferrero/Nutella Brownie/etc.
+  * Add to cart: badge updates to "Cart 1", drawer slides in with item, qty controls, subtotal ₹219, "Order on WhatsApp" button
+  * Visit Us: Google Maps iframe present, 2 addresses, 2 tap-to-call phones, hours, Instagram card, WhatsApp order link, floating phone icons
+  * Footer: sticky at bottom (top:5450, bottom:5910), brand + links + contact + hours + drip accent + back-to-top
+  * Mobile (390x844): single-column responsive, mobile hamburger menu opens with 4 nav links (01-04) + Call/DM buttons, on-brand colors
+  * Cart drawer mobile: item, qty controls, subtotal, WhatsApp button all render correctly
+
+Stage Summary:
+- FULLY VERIFIED via Agent Browser + VLM visual analysis
+- All golden-path interactions work: nav, menu tabs, search, add-to-cart, cart drawer, mobile menu
+- Responsive: mobile-first confirmed at 390px, desktop at 1280px
+- Sticky footer confirmed (pushed to bottom by content, no overlap)
+- No errors in console or dev log
+- Task COMPLETE
